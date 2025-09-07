@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings - Expense Tracker</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header class="dashboard-header">
+        <div class="header-content">
+            <div class="app-logo">
+                <span class="logo-icon">🌌</span>
+                <span class="logo-plus">+</span>
+                <span class="logo-text">EasyFi</span>
+            </div>
+            <nav class="dashboard-nav">
+                <a href="dashboard.html" class="nav-item">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="3" y="3" width="7" height="7"/>
+                        <rect x="14" y="3" width="7" height="7"/>
+                        <rect x="14" y="14" width="7" height="7"/>
+                        <rect x="3" y="14" width="7" height="7"/>
+                    </svg>
+                    <span>Dashboard</span>
+                </a>
+                <a href="income.html" class="nav-item">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="23,6 13.5,15.5 8.5,10.5 1,18"/>
+                        <polyline points="17,6 23,6 23,12"/>
+                    </svg>
+                    <span>Income</span>
+                </a>
+                <a href="expense.html" class="nav-item">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="23,18 13.5,8.5 8.5,13.5 1,6"/>
+                        <polyline points="17,18 23,18 23,12"/>
+                    </svg>
+                    <span>Expenses</span>
+                </a>
+                <a href="settings.html" class="nav-item active">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="3"/>
+                        <path d="M12 1v6m0 6v6"/>
+                        <path d="m21 12-6 0m-6 0-6 0"/>
+                    </svg>
+                    <span>Settings</span>
+                </a>
+            </nav>
+            <div class="user-menu">
+                <button onclick="logout()" class="logout-btn">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+                        <polyline points="16,17 21,12 16,7"/>
+                        <line x1="21" y1="12" x2="9" y2="12"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </header>
+    
+    <div class="dashboard-container">
+        <div id="message" class="message"></div>
+        
+        <div class="page-header">
+            <h1>Settings</h1>
+            <p>Manage your account preferences and financial settings</p>
+        </div>
+        
+        <div class="settings-grid">
+            <div class="form-card">
+                <div class="form-header">
+                    <div class="form-icon">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#00ff88" stroke-width="2">
+                            <line x1="12" y1="1" x2="12" y2="23"/>
+                            <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+                        </svg>
+                    </div>
+                    <h2>Monthly Income Settings</h2>
+                </div>
+                <form id="monthlyIncomeForm" onsubmit="saveMonthlyIncomeSettings(event)" class="modern-form">
+                    <div class="form-group">
+                        <label for="monthlyAmount">Monthly Income Amount (INR):</label>
+                        <div class="input-container">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#666" stroke-width="2">
+                                <line x1="12" y1="1" x2="12" y2="23"/>
+                                <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+                            </svg>
+                            <input type="number" id="monthlyAmount" step="0.01" min="0" required placeholder="Enter monthly income">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="incomeDay">Income Day (1-31):</label>
+                        <div class="input-container">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#666" stroke-width="2">
+                                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+                                <line x1="16" y1="2" x2="16" y2="6"/>
+                                <line x1="8" y1="2" x2="8" y2="6"/>
+                                <line x1="3" y1="10" x2="21" y2="10"/>
+                            </svg>
+                            <input type="number" id="incomeDay" min="1" max="31" value="1" required placeholder="Day of month">
+                        </div>
+                        <small class="form-help">Day of the month you receive income</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="lowBalanceAlert">Low Balance Alert (INR):</label>
+                        <div class="input-container">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#666" stroke-width="2">
+                                <path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/>
+                                <path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/>
+                            </svg>
+                            <input type="number" id="lowBalanceAlert" step="0.01" min="0" required placeholder="Alert threshold">
+                        </div>
+                        <small class="form-help">Alert when wallet goes below this amount</small>
+                    </div>
+                    <div class="form-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="enableReminders" class="modern-checkbox">
+                            <span class="checkmark"></span>
+                            Enable Income Reminders
+                        </label>
+                        <small class="form-help">Get reminded to add monthly income</small>
+                    </div>
+                    <button type="submit" class="submit-btn income">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/>
+                        </svg>
+                        Save Settings
+                    </button>
+                </form>
+            </div>
+            
+            <div class="form-card">
+                <div class="form-header">
+                    <div class="form-icon">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#4facfe" stroke-width="2">
+                            <path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/>
+                            <path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/>
+                        </svg>
+                    </div>
+                    <h2>Income Reminder</h2>
+                </div>
+                <div id="incomeReminder" class="reminder-box">
+                    <p>Set your monthly income settings to get reminders</p>
+                </div>
+                <button onclick="addMonthlyIncome()" class="btn btn-monthly" id="addIncomeBtn" style="display: none;">
+                    📅 Add This Month's Income
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="js/config.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/settings.js"></script>
+</body>
+</html>
